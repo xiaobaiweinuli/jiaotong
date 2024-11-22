@@ -1,0 +1,9 @@
+dependencies:
+  flutter:
+    sdk: flutter
+  geolocator: ^8.2.2
+  amap_location: ^0.4.1
+  camera: ^0.10.3+1
+  google_fonts: ^4.0.4
+  intl: ^0.17.0
+  flutter_local_notifications: ^14.0.0
