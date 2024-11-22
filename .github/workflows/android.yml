@@ -15,11 +15,10 @@ jobs:
         uses: actions/setup-java@v3
         with:
           java-version: '8'
-      - name: Setup Android SDK
-        uses: actions/setup-android@v3
+      - name: Setup Android environment
+        uses: kineticengines/setup-android-actions@v0.1
         with:
-          android-sdk-version: 'latest'
-          ndk-version: '25.2.9519653'
-          cache: true
+          api-level: 29  # 你可以指定一个特定的 API 级别，或者省略此参数以使用默认值
+          ndk: 'latest'  # 指定 NDK 版本，或者使用 'latest' 获取最新版本
       - name: Build with Gradle
         run: ./gradlew assembleDebug
