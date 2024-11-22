@@ -15,11 +15,16 @@ jobs:
         uses: actions/setup-java@v3
         with:
           java-version: '8'
-          distribution: 'adopt'  # 指定 Java 分发版
+          distribution: 'adopt'
       - name: Setup Android environment
         uses: kineticengines/setup-android-actions@v0.1
         with:
           api-level: 29
           ndk: 'latest'
+      - name: Install Gradle
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y gradle
       - name: Build with Gradle
-        run: ./gradlew assembleDebug
+        run: |
+          gradle assembleDebug
