@@ -1,7 +1,6 @@
 name: Build Android App
 
-on：
-    workflow_dispatch
+on:
   push:
     branches: [ main ]
 
