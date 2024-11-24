@@ -15,7 +15,7 @@ jobs:
       uses: actions/setup-java@v3
       with:
         java-version: '11'
-
+        distribution: 'adopt' # 这里指定了 Java 发行版为 adopt
     # 使用 kineticengines/setup-android-actions 来设置 Android SDK
     - name: Set up Android SDK
       uses: kineticengines/setup-android-actions@v0.1
