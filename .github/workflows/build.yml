@@ -23,7 +23,7 @@ jobs:
         api-level: 29  # 指定 Android API 版本，这里是 Android 10 (v29)
 
     - name: Build Android app
-      run: ./gradlew assembleDebug
+      run: ./gradlew jiaotong
 
     - name: Upload artifacts
       uses: actions/upload-artifact@v3
