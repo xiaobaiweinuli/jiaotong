@@ -2,6 +2,14 @@ import { Observable } from '@nativescript/core';
 import { Geolocation } from '@nativescript/geolocation';
 import { LocalNotifications } from '@nativescript/local-notifications';
 
+interface Location {
+    latitude: number;
+    longitude: number;
+    speed: number;
+    direction: number;
+    timestamp: number;
+}
+
 export class HomeViewModel extends Observable {
     private _fromLocation: string = '';
     private _toLocation: string = '';
@@ -12,12 +20,16 @@ export class HomeViewModel extends Observable {
     private _selectedTransportMode: number = 0;
     private _statusMessage: string = 'Ready to plan your journey';
     private _statusClass: string = 'text-gray-600';
+    private _locationWatchId: number | null = null;
 
     constructor() {
         super();
-        this.startLocationTracking();
+        this.startLocationTracking().catch(error => {
+            console.error('Failed to start location tracking:', error);
+        });
     }
 
+    // Getters and setters with proper typing
     get fromLocation(): string {
         return this._fromLocation;
     }
@@ -29,26 +41,66 @@ export class HomeViewModel extends Observable {
         }
     }
 
-    // Similar getters/setters for other properties...
+    get toLocation(): string {
+        return this._toLocation;
+    }
 
-    async calculateRoute() {
-        try {
-            // Implement route calculation logic here
-            this.statusMessage = 'Calculating route...';
-            // Mock calculation for demo
-            setTimeout(() => {
-                this.statusMessage = 'Route calculated! Journey time: 1h 30m';
-            }, 1500);
-        } catch (error) {
-            console.error('Error calculating route:', error);
-            this.statusMessage = 'Error calculating route';
+    set toLocation(value: string) {
+        if (this._toLocation !== value) {
+            this._toLocation = value;
+            this.notifyPropertyChange('toLocation', value);
         }
     }
 
-    async setAlarms() {
+    get statusMessage(): string {
+        return this._statusMessage;
+    }
+
+    set statusMessage(value: string) {
+        if (this._statusMessage !== value) {
+            this._statusMessage = value;
+            this.notifyPropertyChange('statusMessage', value);
+        }
+    }
+
+    get statusClass(): string {
+        return this._statusClass;
+    }
+
+    set statusClass(value: string) {
+        if (this._statusClass !== value) {
+            this._statusClass = value;
+            this.notifyPropertyChange('statusClass', value);
+        }
+    }
+
+    async calculateRoute(): Promise<void> {
+        try {
+            this.statusMessage = 'Calculating route...';
+            
+            // Validate inputs
+            if (!this._fromLocation || !this._toLocation) {
+                throw new Error('Please enter both departure and destination locations');
+            }
+
+            // Mock calculation for demo
+            await new Promise(resolve => setTimeout(resolve, 1500));
+            this.statusMessage = 'Route calculated! Journey time: 1h 30m';
+        } catch (error) {
+            console.error('Error calculating route:', error);
+            this.statusMessage = `Error: ${error instanceof Error ? error.message : 'Failed to calculate route'}`;
+        }
+    }
+
+    async setAlarms(): Promise<void> {
         try {
             const departureTime = new Date();
             departureTime.setHours(this._departureHour, this._departureMinute);
+
+            // Validate departure time is in the future
+            if (departureTime.getTime() <= Date.now()) {
+                throw new Error('Departure time must be in the future');
+            }
 
             await LocalNotifications.schedule([
                 {
@@ -68,18 +120,24 @@ export class HomeViewModel extends Observable {
             this.statusMessage = 'Alarms set successfully';
         } catch (error) {
             console.error('Error setting alarms:', error);
-            this.statusMessage = 'Error setting alarms';
+            this.statusMessage = `Error: ${error instanceof Error ? error.message : 'Failed to set alarms'}`;
         }
     }
 
-    private async startLocationTracking() {
+    private async startLocationTracking(): Promise<void> {
         try {
-            const watchId = await Geolocation.watchLocation(
-                (location) => {
+            // Clear existing watch if any
+            if (this._locationWatchId !== null) {
+                Geolocation.clearWatch(this._locationWatchId);
+            }
+
+            this._locationWatchId = await Geolocation.watchLocation(
+                (location: Location) => {
                     this.checkProximityToStation(location);
                 },
                 (error) => {
                     console.error('Error watching location:', error);
+                    this.statusMessage = 'Error tracking location';
                 },
                 {
                     desiredAccuracy: 3,
@@ -89,15 +147,15 @@ export class HomeViewModel extends Observable {
             );
         } catch (error) {
             console.error('Error starting location tracking:', error);
+            throw error;
         }
     }
 
-    private checkProximityToStation(location: any) {
+    private checkProximityToStation(location: Location): void {
         // Mock station location for demo
         const stationLat = 35.6812;
         const stationLon = 139.7671;
         
-        // Calculate distance (simplified)
         const distance = this.calculateDistance(
             location.latitude,
             location.longitude,
@@ -115,8 +173,7 @@ export class HomeViewModel extends Observable {
     }
 
     private calculateDistance(lat1: number, lon1: number, lat2: number, lon2: number): number {
-        // Simplified distance calculation (km)
-        const R = 6371;
+        const R = 6371; // Earth's radius in km
         const dLat = (lat2 - lat1) * Math.PI / 180;
         const dLon = (lon2 - lon1) * Math.PI / 180;
         const a = Math.sin(dLat/2) * Math.sin(dLat/2) +
@@ -124,5 +181,13 @@ export class HomeViewModel extends Observable {
                 Math.sin(dLon/2) * Math.sin(dLon/2);
         const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
         return R * c;
+    }
+
+    // Cleanup method to prevent memory leaks
+    public cleanup(): void {
+        if (this._locationWatchId !== null) {
+            Geolocation.clearWatch(this._locationWatchId);
+            this._locationWatchId = null;
+        }
     }
 }
