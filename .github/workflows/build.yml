@@ -16,13 +16,11 @@ jobs:
       with:
         java-version: '11'
 
+    # 使用 kineticengines/setup-android-actions 来设置 Android SDK
     - name: Set up Android SDK
-      uses: actions/setup-android@v3
+      uses: kineticengines/setup-android-actions@v0.1
       with:
-        android-sdk-version: 'latest'
-        android-ndk-version: 'latest'
-        emulator-avd: 'Pixel_4_API_33'
-        # 移除 license: 'MIT' 这一行
+        api-level: 29  # 指定 Android API 版本，这里是 Android 10 (v29)
 
     - name: Build Android app
       run: ./gradlew assembleDebug
