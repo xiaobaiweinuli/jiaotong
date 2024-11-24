@@ -1,0 +1,31 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.btn {
+    @apply font-bold py-2 px-4 rounded;
+}
+
+.btn-primary {
+    @apply bg-blue-500 text-white;
+}
+
+.btn-primary:active {
+    @apply bg-blue-700;
+}
+
+.btn-secondary {
+    @apply bg-gray-500 text-white;
+}
+
+.btn-secondary:active {
+    @apply bg-gray-700;
+}
+
+.input {
+    @apply border-gray-300 rounded p-2;
+}
+
+.time-picker {
+    @apply border rounded p-2;
+}

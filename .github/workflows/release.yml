@@ -1,0 +1,42 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'npm'
+    
+    - name: Setup Java
+      uses: actions/setup-java@v4
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+    
+    - name: Setup Android SDK
+      uses: android-actions/setup-android@v3
+    
+    - name: Install Dependencies
+      run: npm ci
+    
+    - name: Build Android Release
+      run: npm run build:android -- --release --key-store-path ${{ secrets.KEYSTORE_PATH }} --key-store-password ${{ secrets.KEYSTORE_PASSWORD }} --key-store-alias ${{ secrets.KEYSTORE_ALIAS }} --key-store-alias-password ${{ secrets.KEYSTORE_ALIAS_PASSWORD }}
+    
+    - name: Create Release
+      uses: softprops/action-gh-release@v1
+      with:
+        files: platforms/android/app/build/outputs/apk/release/app-release.apk
+        generate_release_notes: true
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
