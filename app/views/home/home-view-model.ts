@@ -1,5 +1,5 @@
 import { Observable } from '@nativescript/core';
-import { Geolocation } from '@nativescript/geolocation';
+import { Location } from '@nativescript/geolocation';
 import { LocalNotifications } from '@nativescript/local-notifications';
 
 interface Location {
