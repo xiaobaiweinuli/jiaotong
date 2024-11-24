@@ -28,5 +28,5 @@ jobs:
     - name: Upload artifacts
       uses: actions/upload-artifact@v3
       with:
-        name: android-app
-        path: app
+        name: xupdate_apk
+        path: ${{ github.workspace }}/app/build/outputs/apk/release
