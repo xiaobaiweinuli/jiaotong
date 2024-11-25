@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">旅行时间规划</string>
+
+    <string name="select_transport_mode">选择出行的交通方式</string>
+    <string name="select_map_api_provider">选择地图API提供程序</string>
+
+    <string name="input_departure_time_hint">请输入出发时间（格式：HH:mm）</string>
+    <string name="input_arrival_time_hint">请输入到达时间（格式：HH:mm）</string>
+    <string name="input_station_location_hint">请输入车站位置</string>
+
+    <string name="submit_button_text">提交</string>
+    <string name="settings_button_text">设置</string>
+    <string name="voice_input_button_text">语音输入</string>
+    <string name="finish_settings_button_text">完成</string>
+
+    <string name="travel_time_text">预计最长交通用时：</string>
+    <string name="route_info_text">路线信息：</string>
+    <string name="status_text">活动状态提示：</string>
+
+    <string name="input_map_api_key_text">输入地图API密钥：</string>
+    <string name="set_custom_buffer_time_text">设置空余时间（分钟）：</string>
+    <string name="set_distance_threshold_text">设置直线距离阈值（千米）：</string>
+    <string name="set_status_color_text">设置活动状态颜色（十六进制值，以#开头）：</string>
+    <string name="set_custom_prompt_text">设置提示内容：</string>
+    <string name="set_vibration_level_text">设置闹钟响铃时震动大小：</string>
+    <string name="set_sound_option_text">设置闹钟响铃声音选项：</string>
+</resources>

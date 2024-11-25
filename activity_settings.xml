@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match-parent"
+    android:layout_height="match-parent">
+
+    <!-- 地图API密钥输入框 -->
+    <TextView
+        android:layout_width="wrap-content"
+        android:layout_height="wrap-content"
+        android:text="输入地图API密钥："
+        android:contentDescription="输入地图API密钥" />
+    <EditText
+        android:id="@+id/editText_userInputMapApiKey"
+        android:layout_width="match-parent"
+        android:layout_height="wrap-content"
+        android:textColor="@color/text_color"
+        android:background="@drawable/edit_text_background"
+        android:contentDescription="输入地图API密钥的文本框" />
+
+    <!-- 地图API提供程序选择 -->
+    <TextView
+        android:layout_width="wrap-content"
+    android:layout_height="wrap-content"
+    android:text="选择地图API提供程序："
+    android:contentDescription="选择地图API提供程序" />
+    <Spinner
+        android:id="@+id/spinner_userInputMapApiProvider"
+        android:layout_width="match-parent"
+        android:layout_height="wrap-content"
+        android:prompt="@string/select_map_api_provider"
+        android:background="@drawable/spinner_background"
+        android:contentDescription="选择地图API提供程序的下拉列表" />
+
+    <!-- 空余时间设置 -->
+    <TextView
+        android:layout_width="wrap-content"
+        android:layout_height="wrap-content"
+        android:text="设置空余时间（分钟）："
+        android:contentDescription="设置空余时间" />
+    <SeekBar
+        android:id="@+id/seekBar_customBufferTime"
+        android:layout_width="match-parent"
+        android:layout_height="wrap-content"
+        android:progressDrawable="@drawable/seekbar_progress"
+        android:thumb="@drawable/seekbar_thumb"
+        android:contentDescription="设置空余时间的滑动条" />
+
+    <!-- 交通方式选择 -->
+    <TextView
+        android:layout_width="wrap-content"
+        android:layout_height="wrap-content"
+        android:text="选择交通方式："
+        android:contentDescription="选择交通方式" />
+    <Spinner
+        android:id="@+id/spinner_transportMode"
+        android:layout_width="match-parent"
+        android:layout_height="wrap-content"
+        android:prompt="@string/select_transport_mode"
+        android:background="@drawable/spinner_background"
+        android:contentDescription="选择交通方式的下拉列表" />
+
+    <!-- 直线距离阈值设置 -->
+    <TextView
+        android:layout_width="wrap-content"
+        android:layout_height="wrap-content"
+        android:text="设置直线距离阈值（千米）："
+        android:contentDescription="设置直线距离阈值" />
+    <EditText
+        android:id="@+id/editText_distanceThreshold"
+        android:layout_width="match-parent"
+        android:layout_height="wrap-content"
+        android:textColor="@color/text_color"
+        android:background="@drawable/edit_text_background"
+        android:contentDescription="设置直线距离阈值的文本框" />
+
+    <!-- 活动状态颜色设置 -->
+    <TextView
+        android:layout_width="wrap-content"
+        android:layout_height="wrap-content"
+        android:text="设置活动状态颜色（十六进制值，以#开头）："
+        android:contentDescription="设置活动状态颜色" />
+    <EditText
+        android:id="@+id/editText_statusColor"
+        android:layout_width="match-parent"
+        android:layout_height="wrap-content"
+        android:textColor="@color/text_color"
+        android:background="@drawable/edit_text_background"
+        android:contentDescription="设置活动状态颜色的文本框" />
+
+    <!-- 提示内容设置 -->
+    <TextView
+        android:layout_width="wrap-content"
+        android:layout_height="wrap-content"
+        android:text="设置提示内容："
+        android:contentDescription="设置提示内容" />
+    <EditText
+        android:id="@+id/editText_customPrompt"
+        android:layout_width="match-parent"
+        android:layout_height="wrap-content"
+        android:textColor="@color/text_color"
+        android:background="@drawable/edit_text_background"
+        android:contentDescription="设置提示内容的文本框" />
+
+    <!-- 闹钟响铃时震动大小设置 -->
+    <TextView
+        android:layout_width="wrap-content"
+        android:layout_height="wrap-content"
+        android:text="设置闹钟响铃时震动大小："
+        android:contentDescription="设置闹钟响铃时震动大小" />
+    <RadioGroup
+        android:id="@+id/radioGroup_vibrationLevel"
+        android:layout_width="match-parent"
+        android:layout_height="wrap-content"
+        android:orientation="horizontal"
+        android:contentDescription="选择闹钟响铃时的震动大小">
+        <RadioButton
+            android:id="@+id/radioButton_noVibration"
+            android:layout_width="wrap-content"
+            android:layout_height="wrap-content"
+            android:text="无震动"
+            android:contentDescription="选择无震动" />
+        <RadioButton
+            android:id="@+id/radioButton_lightVibration"
+            android:layout_width="wrap-content"
+            android:layout_height="wrap-content"
+            android:text="小震动"
+            android:contentDescription="选择小震动" />
+        <RadioButton
+            android:id="@+id/radioButton_heavyVibration"
+            android:layout_width="wrap-content"
+            android:layout_height="wrap-content"
+            android:text="大震动"
+            android:contentDescription="选择大震动" />
+    </RadioGroup>
+
+    <!-- 闹钟响铃声音选项设置 -->
+    <TextView
+        android:layout_width="wrap-content"
+        android:layout_height="wrap-content"
+        android:text="设置闹钟响铃声音选项："
+        android:contentDescription="设置闹钟响铃声音选项" />
+    <RadioGroup
+        android:id="@+id/radioGroup_soundOption"
+        android:layout_width="match-parent"
+        android:layout_height="wrap-content"
+        android:orientation="horizontal"
+        android:contentDescription="选择闹钟响铃声音选项">
+        <RadioButton
+            android:id="@+id/radioButton_noSound"
+            android:text="无声音"
+            android:layout_width="wrap-content"
+            android:layout_height="wrap-content"
+            android:contentDescription="选择无声音" />
+        <RadioButton
+            android:id="@+id/radioButton_systemSound"
+            android:text="系统铃声"
+            android:layout_width="wrap-content"
+            android:layout_height="wrap-content"
+            android:contentDescription="选择系统铃声" />
+        <RadioButton
+            android:id="@+id/radioButton_customSound"
+            android:text="自定义音频文件"
+            android:layout_width="wrap-content"
+            android:layout_height="wrap-content"
+            android:contentDescription="选择自定义音频文件" />
+    </RadioGroup>
+
+    <!-- 完成设置按钮 -->
+    <Button
+        android:id="@+id/button_finishSettings"
+        android:layout_width="wrap-content"
+        android:layout_height="wrap-content"
+        android:text="完成"
+        android:textColor="@color/button_text_color"
+        android:background="@drawable/button_background"
+        android:contentDescription="完成设置并返回" />
+
+</LinearLayout>
